@@ -1,2 +1,2 @@
 # paulopedreira-website
-Código-fonte e infraestrutura do meu site pessoal e currículo profissional. Hospedado na AWS com S3, CloudFront e deploy automatizado via GitHub Actions.
+Personal website & resume hosted on AWS (Private S3 + CloudFront CDN) with CI/CD via GitHub Actions.
