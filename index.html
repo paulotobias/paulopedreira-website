@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="Paulo Pedreira | Analista de Infraestrutura | Cloud AWS | DevOps | Redes | Linux | Virtualização"
+    >
+    <title>Paulo Pedreira | Infraestrutura, Cloud & DevOps</title>
+
+    <style>
+        :root {
+            --bg: #07111f;
+            --bg-soft: #0d1b2a;
+            --card: rgba(15, 30, 48, 0.78);
+            --card-light: #10243a;
+            --text: #e8f0f8;
+            --muted: #9fb1c4;
+            --accent: #38bdf8;
+            --accent-2: #22d3ee;
+            --border: rgba(148, 163, 184, 0.16);
+            --white: #ffffff;
+            --max-width: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.12), transparent 28%),
+                radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.08), transparent 25%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .container {
+            width: min(var(--max-width), calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* ---------- HEADER ---------- */
+
+        header {
+            min-height: 560px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            right: -160px;
+            top: -160px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.10);
+            filter: blur(5px);
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 42px;
+            align-items: center;
+            padding: 70px 0;
+        }
+
+        .profile-photo {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid rgba(56, 189, 248, 0.75);
+            box-shadow:
+                0 0 0 8px rgba(56, 189, 248, 0.06),
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero-title {
+            margin: 16px 0 0;
+            max-width: 800px;
+            font-size: 21px;
+            color: var(--muted);
+        }
+
+        .hero-description {
+            max-width: 780px;
+            margin: 18px 0 0;
+            color: #c6d4e2;
+            font-size: 16px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            transition: 0.25s ease;
+        }
+
+        .button-primary {
+            background: var(--accent);
+            color: #03111d;
+            border-color: var(--accent);
+        }
+
+        .button-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ---------- NAV ---------- */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(16px);
+            background: rgba(7, 17, 31, 0.86);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            min-height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- MAIN ---------- */
+
+        main {
+            padding: 55px 0;
+        }
+
+        section {
+            margin-bottom: 55px;
+            scroll-margin-top: 85px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .about-card,
+        .job,
+        .education-card,
+        .contact-card {
+            background: linear-gradient(
+                145deg,
+                rgba(16, 36, 58, 0.9),
+                rgba(10, 25, 41, 0.78)
+            );
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+        }
+
+        .about-card {
+            padding: 30px;
+        }
+
+        .about-card p {
+            margin: 0 0 14px;
+            color: #cbd8e5;
+        }
+
+        .about-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ---------- HIGHLIGHTS ---------- */
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .highlight {
+            padding: 22px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid var(--border);
+        }
+
+        .highlight strong {
+            display: block;
+            font-size: 22px;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .highlight span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ---------- EXPERIENCE ---------- */
+
+        .timeline {
+            position: relative;
+            display: grid;
+            gap: 18px;
+        }
+
+        .job {
+            position: relative;
+            padding: 28px 30px 28px 34px;
+        }
+
+        .job::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 27px;
+            bottom: 27px;
+            width: 3px;
+            border-radius: 5px;
+            background: linear-gradient(var(--accent), var(--accent-2));
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .job h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .company {
+            margin-top: 3px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .date {
+            flex-shrink: 0;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .job-summary {
+            color: #cbd8e5;
+            margin: 17px 0 12px;
+        }
+
+        .responsibilities {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--muted);
+        }
+
+        .responsibilities li {
+            margin-bottom: 7px;
+        }
+
+        /* ---------- SKILLS ---------- */
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        .skill {
+            padding: 9px 13px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.035);
+            color: #cbd8e5;
+            font-size: 13px;
+            transition: 0.25s ease;
+        }
+
+        .skill:hover {
+            transform: translateY(-2px);
+            border-color: rgba(56, 189, 248, 0.6);
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.06);
+        }
+
+        /* ---------- EDUCATION / CERTIFICATIONS ---------- */
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .education-card {
+            padding: 25px;
+        }
+
+        .education-card h3 {
+            margin: 0 0 7px;
+            font-size: 17px;
+        }
+
+        .education-card p {
+            margin: 0 0 13px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .cert-list {
+            margin: 0;
+            padding-left: 19px;
+            color: var(--muted);
+        }
+
+        .cert-list li {
+            margin-bottom: 8px;
+        }
+
+        /* ---------- CONTACT ---------- */
+
+        .contact-card {
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .contact-card h2 {
+            margin: 0 0 6px;
+        }
+
+        .contact-card p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .contact-link {
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            text-decoration: none;
+            color: #dce8f3;
+            font-size: 13px;
+        }
+
+        .contact-link:hover {
+            color: var(--accent);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        /* ---------- FOOTER ---------- */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 28px 0;
+            color: #71869a;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                justify-items: center;
+            }
+
+            .hero-description,
+            .hero-title {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .highlights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: min(var(--max-width), calc(100% - 28px));
+            }
+
+            header {
+                min-height: auto;
+            }
+
+            .hero {
+                padding: 55px 0;
+            }
+
+            .profile-photo {
+                width: 145px;
+                height: 145px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-title {
+                font-size: 18px;
+            }
+
+            main {
+                padding: 38px 0;
+            }
+
+            .highlights {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .job {
+                padding: 24px 20px 24px 26px;
+            }
+
+            .job-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .date {
+                white-space: normal;
+            }
+
+            .about-card,
+            .contact-card {
+                padding: 23px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header id="inicio">
+    <div class="container hero">
+        <img
+            class="profile-photo"
+            src="foto-paulo.jpg"
+            alt="Foto de Paulo Pedreira"
+        >
+
+        <div>
+            <div class="eyebrow">Infraestrutura • Cloud • DevOps</div>
+
+            <h1>
+                Paulo <span>Pedreira</span>
+            </h1>
+
+            <p class="hero-title">
+                Analista de Infraestrutura com experiência em ambientes
+                corporativos, Cloud AWS, redes, Linux, virtualização e
+                automação.
+            </p>
+
+            <p class="hero-description">
+                Profissional focado em disponibilidade, segurança, performance
+                e modernização de ambientes de TI, com atuação em infraestrutura
+                on-premises e Cloud.
+            </p>
+
+            <div class="hero-actions">
+                <a class="button button-primary" href="#experiencia">
+                    Ver experiência
+                </a>
+
+                <a
+                    class="button button-secondary"
+                    href="https://linkedin.com/in/paulopedreira"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <div class="container nav-content">
+        <a href="#sobre">Sobre</a>
+        <a href="#experiencia">Experiência</a>
+        <a href="#competencias">Competências</a>
+        <a href="#formacao">Formação</a>
+        <a href="#certificacoes">Certificações</a>
+        <a href="#contato">Contato</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <section id="sobre">
+        <div class="section-heading">
+            <div>
+                <h2>Perfil profissional</h2>
+            </div>
+            <p>Infraestrutura, Cloud e sustentação de ambientes críticos</p>
+        </div>
+
+        <div class="about-card">
+            <p>
+                Profissional de Infraestrutura de TI com experiência em
+                ambientes críticos, atuando com redes, firewall,
+                virtualização, servidores Linux/Windows, containers,
+                monitoramento e Cloud.
+            </p>
+
+            <p>
+                Possuo sólida atuação em suporte e sustentação de ambientes
+                corporativos, com foco em disponibilidade, performance e
+                segurança.
+            </p>
+
+            <p>
+                Atuo com AWS, aliando prática profissional, estudos e
+                laboratórios, com foco em arquitetura, alta disponibilidade e
+                segurança.
+            </p>
+
+            <p>
+                Tenho perfil analítico, proativo e orientado à solução de
+                problemas, sempre buscando melhoria contínua e atualização
+                tecnológica.
+            </p>
+
+            <div class="highlights">
+                <div class="highlight">
+                    <strong>Cloud</strong>
+                    <span>AWS, OCI, Azure e Cloudstack</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>DevOps</strong>
+                    <span>Docker, GitLab, Github e CI/CD</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>Infra</strong>
+                    <span>Linux, Windows redes e vitualização</span>
+                </div>
+
+                <div class="highlight">
+                    <strong>Observabilidade</strong>
+                    <span>Zabbix, Grafana e Graylog</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia">
+        <div class="section-heading">
+            <h2>Experiência profissional</h2>
+            <p>Trajetória em infraestrutura e evolução para Cloud</p>
+        </div>
+
+        <div class="timeline">
+
+            <article class="job">
+                <div class="job-header">
+                    <div>
+                        <h3>Analista de Infraestrutura</h3>
+                        <div class="company">Sicredi Dexis</div>
+                    </div>
+                    <div class="date">Mar 2025 – Atual | Maringá-PR</div>
+                </div>
+
+                <p class="job-summary">
+                    Atuação na administração e sustentação da infraestrutura de
+                    TI, garantindo disponibilidade, segurança e desempenho do
+                    ambiente corporativo. Participação na modernização da
+                    infraestrutura, migração de workloads on-premises para AWS
+                    e desenvolvimento de automações com práticas DevOps.
+                </p>
+
+                <ul class="responsibilities">
+                    <li>Administração e sustentação de servidores Windows e Linux.</li>
+                    <li>Gerenciamento de infraestrutura virtualizada com VMware vSphere (ESXi / vCenter).</li>
+                    <li>Administração de ambientes de containers com Docker e Docker Swarm.</li>
+                    <li>Gerenciamento de backup e recuperação utilizando Veeam Backup &amp; Replication.</li>
+                    <li>Configuração e administração de switches e firewalls.</li>
+                    <li>Administração de monitoramento utilizando Zabbix e Grafana.</li>
+                    <li>Administração e análise centralizada de logs utilizando Graylog.</li>
+                    <li>Atuação com GitLab, versionamento, merge de branches, pipelines CI/CD e GitLab Runner.</li>
+                    <li>Participação na migração de workloads on-premises para AWS.</li>
+                    <li>Administração de Amazon EC2, Amazon RDS e Amazon S3.</li>
+                    <li>Configuração de ALB, Target Groups, Security Groups e AWS WAF.</li>
+                    <li>Configuração de aplicações em Amazon ECS com AWS Fargate, EFS e AWS Secrets Manager.</li>
+                    <li>Configuração de alertas e dashboards utilizando Amazon CloudWatch.</li>
+                    <li>Gerenciamento de estratégias de backup e recuperação em ambientes AWS.</li>
+                </ul>
+            </article>
+
+            <article class="job">
+                <div class="job-header">
+                    <div>
+                        <h3>Analista de Infraestrutura</h3>
+                        <div class="company">GTFoods</div>
+                    </div>
+                    <div class="date">Dez 2021 – Mar 2025 | Maringá-PR</div>
+                </div>
+
+                <p class="job-summary">
+                    Atuação no ambiente de datacenter, com foco em virtualização,
+                    redes, segurança, servidores e monitoramento.
+                </p>
+
+                <ul class="responsibilities">
+                    <li>Administração de ambientes virtualizados VMware e Hyper-V.</li>
+                    <li>Administração de redes, switches, firewall Fortinet e VPNs.</li>
+                    <li>Troubleshooting de conectividade para matriz e filiais.</li>
+                    <li>Suporte a serviços em ambientes Linux e Windows.</li>
+                    <li>Monitoramento utilizando Zabbix e Grafana.</li>
+                    <li>Suporte técnico de nível 2 e 3.</li>
+                    <li>Aplicação de patches e updates nos ERPs.</li>
+                    <li>Início de atividades relacionadas a bancos de dados Oracle.</li>
+                    <li>Participação em projetos de Endpoint, rede Wi-Fi e migração de workloads on-premises para Cloud.</li>
+                </ul>
+            </article>
+
+            <article class="job">
+                <div class="job-header">
+                    <div>
+                        <h3>Técnico de Infraestrutura</h3>
+                        <div class="company">AMTI Datacenter e Cloud</div>
+                    </div>
+                    <div class="date">Fev 2021 – Nov 2021</div>
+                </div>
+
+                <p class="job-summary">
+                    Suporte à infraestrutura, sistemas operacionais e clientes,
+                    com atuação em ambientes de datacenter e virtualização.
+                </p>
+
+                <ul class="responsibilities">
+                    <li>Configuração de servidores Windows e Linux.</li>
+                    <li>Administração de DNS, Active Directory, arquivos, Terminal Service, DHCP e e-mail.</li>
+                    <li>Configuração e gerenciamento de máquinas virtuais com CloudStack, VMware e XenServer.</li>
+                    <li>Rotinas de backup utilizando Dell EMC Avamar.</li>
+                    <li>Administração de firewall PFSense.</li>
+                    <li>Monitoramento de rede com Zabbix e Grafana.</li>
+                </ul>
+            </article>
+
+            <article class="job">
+                <div class="job-header">
+                    <div>
+                        <h3>Analista de Infraestrutura</h3>
+                        <div class="company">Sengés Papel e Celulose</div>
+                    </div>
+                    <div class="date">Fev 2013 – Dez 2019</div>
+                </div>
+
+                <p class="job-summary">
+                    Atuação com administração, troubleshooting e monitoramento
+                    de servidores Linux e Windows, suporte aos usuários,
+                    virtualização, backup, hardware, software e ERP.
+                </p>
+
+                <ul class="responsibilities">
+                    <li>Implantação de backup automatizado com Bacula.</li>
+                    <li>Implantação e administração de Active Directory e servidor de arquivos.</li>
+                    <li>Implantação de Service Desk GLPI e Openfire.</li>
+                    <li>Monitoramento de ativos de rede com Nagios.</li>
+                    <li>Migração de servidores físicos para Citrix XenServer.</li>
+                    <li>Implantação de Wi-Fi unificado com Ubiquiti UniFi.</li>
+                    <li>Administração de Zimbra, Office 365, Apache2, PHP e MySQL.</li>
+                    <li>Administração de Proxy, OpenVPN, DHCP, Samba Linux e Active Directory.</li>
+                    <li>Configuração de GPOs, cotas de disco e controle de acesso.</li>
+                    <li>Desenvolvimento do website da empresa.</li>
+                </ul>
+            </article>
+
+        </div>
+    </section>
+
+    <section id="competencias">
+        <div class="section-heading">
+            <h2>Principais competências</h2>
+            <p>Tecnologias e ferramentas</p>
+        </div>
+
+        <div class="skills-grid">
+            <span class="skill">AWS</span>
+            <span class="skill">Amazon EC2</span>
+            <span class="skill">Amazon S3</span>
+            <span class="skill">Amazon RDS</span>
+            <span class="skill">Amazon ECS</span>
+            <span class="skill">AWS Fargate</span>
+            <span class="skill">AWS EFS</span>
+            <span class="skill">AWS WAF</span>
+            <span class="skill">AWS Secrets Manager</span>
+            <span class="skill">CloudWatch</span>
+            <span class="skill">Linux</span>
+            <span class="skill">Windows Server</span>
+            <span class="skill">VMware</span>
+            <span class="skill">Hyper-V</span>
+            <span class="skill">Docker</span>
+            <span class="skill">Docker Swarm</span>
+            <span class="skill">GitLab</span>
+            <span class="skill">GitHub</span>
+            <span class="skill">CI/CD</span>
+            <span class="skill">Veeam Backup &amp; Replication</span>
+            <span class="skill">Redes</span>
+            <span class="skill">Firewall Fortinet</span>
+            <span class="skill">PFSense</span>
+            <span class="skill">Zabbix</span>
+            <span class="skill">Grafana</span>
+            <span class="skill">Graylog</span>
+            <span class="skill">Oracle Cloud</span>
+            <span class="skill">Azure</span>
+        </div>
+    </section>
+
+    <section id="formacao">
+        <div class="section-heading">
+            <h2>Formação</h2>
+            <p>Formação acadêmica</p>
+        </div>
+
+        <div class="two-columns">
+            <div class="education-card">
+                <h3>Bacharelado em Sistemas de Informação</h3>
+                <p>Formação superior em Tecnologia da Informação.</p>
+            </div>
+
+            <div class="education-card">
+                <h3>Pós-graduação em Redes de Computadores</h3>
+                <p>Especialização com foco em redes e infraestrutura.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificacoes">
+        <div class="section-heading">
+            <h2>Licenças e certificações</h2>
+            <p>Certificações e formação complementar</p>
+        </div>
+
+        <div class="education-card">
+            <ul class="cert-list">
+                <li>CCNA: Switching, Routing, and Wireless Essentials</li>
+                <li>CCNAv7: Switching, Routing e Wireless Essentials</li>
+                <li>Oracle Cloud Infrastructure Foundations 2021 Associate</li>
+                <li>Microsoft Certified: Azure Fundamentals</li>
+                <li>NSE 1 Network Security Associate</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contato">
+        <div class="contact-card">
+            <div>
+                <h2>Vamos conversar?</h2>
+                <p>
+                    Disponível para oportunidades relacionadas a Infraestrutura,
+                    Cloud, AWS e DevOps.
+                </p>
+            </div>
+
+            <div class="contact-links">
+                <a
+                    class="contact-link"
+                    href="mailto:paulo.pedreira@outlook.com.br"
+                >
+                    Email
+                </a>
+
+                <a
+                    class="contact-link"
+                    href="https://linkedin.com/in/paulopedreira"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="container">
+        © 2026 – Paulo Pedreira | Currículo Online
+    </div>
+</footer>
+
+</body>
+</html>
