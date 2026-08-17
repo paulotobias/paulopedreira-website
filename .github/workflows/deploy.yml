@@ -21,7 +21,7 @@ jobs:
         aws-region: us-east-1
     - name: Sincronizar arquivos
       run:
-        aws s3 sync . s3://${{ vars.AWS_S3_BUCKET }} --delete --exclude ".git/*" --exclude ".github/*"
+        aws s3 sync . s3://${{ secrets.AWS_S3_BUCKET }} --delete --exclude ".git/*" --exclude ".github/*"
 
     - name: Limpar cache do CloudFront
       run: |
